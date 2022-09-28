@@ -1,0 +1,41 @@
+steps:
+- name: 'gcr.io/cloud-builders/docker'
+  args: ['build', '--tag=gcr.io/${PROJECT_ID}/hugo', "-f", "./hugo/Dockerfile", '.']
+  
+- name: 'gcr.io/${PROJECT_ID}/hugo'
+  args: ['--help']
+  
+- name: busybox
+  args: ["ls", "-lh", "./example"]
+  
+- name: 'gcr.io/$PROJECT_ID/hugo'
+  args: ["-v", "-s", "./example/"]
+  
+- name: busybox
+  args: ["ls", "-lh"]
+  
+- name: busybox
+  args: ["ls", "-lh", "./example/public" ]
+  
+- name: busybox
+  args: ["cat", "./example/public/index.xml"]
+  
+- name: 'gcr.io/cloud-builders/docker'
+  args: ["build", "--tag=gcr.io/${PROJECT_ID}/ngnix", "-f", "./ngnix/Dockerfile", "."]
+  
+- name: 'gcr.io/cloud-builders/docker'
+  args: ['push', 'gcr.io/${PROJECT_ID}/ngnix']
+  
+# Deploy container image to Cloud Run ( To be Updated)
+- name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+  entrypoint: gcloud
+  args:
+  - 'run'
+  - 'deploy'
+  - 'hugongnix'
+  - '--image'
+  - 'gcr.io/${PROJECT_ID}/ngnix:latest'
+  - '--region'
+  - 'us-central1'
+images: ['gcr.io/${PROJECT_ID}/ngnix']
+tags: ['cloud-builders-community']
