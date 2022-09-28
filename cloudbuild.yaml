@@ -15,7 +15,7 @@ steps:
   args: ["ls", "-lh", "./public" ]
   
 - name: busybox
-  args: ["cat", ".public/index.html"]
+  args: ["cat", "./public/index.html"]
   
 - name: 'gcr.io/cloud-builders/docker'
   args: ["build", "--tag=gcr.io/${PROJECT_ID}/ngnix", "-f", "./ngnix/Dockerfile", "."]
