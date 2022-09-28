@@ -1,9 +1,16 @@
 steps:
+
+- name: gcr.io/cloud-builders/git
+  args: ['fetch', '--unshallow']
+  
 - name: 'gcr.io/cloud-builders/docker'
   args: ['build', '--tag=gcr.io/${PROJECT_ID}/hugo', "-f", "./hugo/Dockerfile", '.']
   
 - name: 'gcr.io/${PROJECT_ID}/hugo'
   args: ['--help']
+  
+- name: 'gcr.io/${PROJECT_ID}/hugo'
+  args: ['mod', 'graph']
   
 - name: 'gcr.io/$PROJECT_ID/hugo'
   args: ["-v"]
@@ -13,6 +20,9 @@ steps:
   
 - name: busybox
   args: ["ls", "-lh", "./public" ]
+  
+- name: busybox
+  args: ["ls", "-lh", "./public/docs" ]
   
 - name: busybox
   args: ["cat", "./public/index.html"]
