@@ -5,20 +5,17 @@ steps:
 - name: 'gcr.io/${PROJECT_ID}/hugo'
   args: ['--help']
   
-- name: busybox
-  args: ["ls", "-lh", "./example"]
-  
 - name: 'gcr.io/$PROJECT_ID/hugo'
-  args: ["-v", "-s", "./example/"]
+  args: ["-v"]
   
 - name: busybox
   args: ["ls", "-lh"]
   
 - name: busybox
-  args: ["ls", "-lh", "./example/public" ]
+  args: ["ls", "-lh", "./public" ]
   
 - name: busybox
-  args: ["cat", "./example/public/index.xml"]
+  args: ["cat", ".public/index.html"]
   
 - name: 'gcr.io/cloud-builders/docker'
   args: ["build", "--tag=gcr.io/${PROJECT_ID}/ngnix", "-f", "./ngnix/Dockerfile", "."]
