@@ -1,5 +1,6 @@
-baseURL = "/"
+baseURL = "https://hugongnix-cd66dlflaa-uc.a.run.app/"
 title = "HugoTechDoc"
+
 
 # Language settings
 contentDir = "content/en"
