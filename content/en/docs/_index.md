@@ -7,7 +7,6 @@ weight: 20
 menu:
   main:
     weight: 20
-    url: 'https://github.com/google/docsy/'
 ---
 
 {{% pageinfo %}}
