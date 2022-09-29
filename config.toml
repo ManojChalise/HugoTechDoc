@@ -1,6 +1,11 @@
 baseURL = "https://hugongnix-cd66dlflaa-uc.a.run.app/"
 title = "HugoTechDoc"
 
+[[menu.main]]
+    name = "GitHub"
+    weight = 50
+    url = "https://github.com/google/docsy/"
+
 
 # Language settings
 contentDir = "content/en"
