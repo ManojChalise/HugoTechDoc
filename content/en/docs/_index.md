@@ -2,10 +2,8 @@
 ---
 title: "Documentation"
 linkTitle: "Documentation"
-menu:
-  main:
-    weight: 20
-    url: 'https://hugongnix-cd66dlflaa-uc.a.run.app/docs/index.html'
+weight: 20
+
 ---
 
 {{% pageinfo %}}
