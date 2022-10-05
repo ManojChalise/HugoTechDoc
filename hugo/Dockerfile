@@ -1,7 +1,7 @@
-FROM registry.gitlab.com/pages/hugo/hugo_extended:0:79.1
+FROM klakegg/hugo:ext-alpine
 
-RUN apk add --update --nocache git
-
-RUN apk add --update npm
-
-ENTRYPOINT /user/bin/hugo
+RUN apk add git && \
+  git config --global --add safe.directory /src
+  
+RUN npm install
+RUN npm install -g @fullhuman/postcss-purgecss rtlcss
