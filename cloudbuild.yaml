@@ -1,35 +1,48 @@
 steps:
 
+# Fetch 
 - name: gcr.io/cloud-builders/git
   args: ['fetch', '--unshallow']
+  
+# Build Hugo docker
   
 - name: 'gcr.io/cloud-builders/docker'
   args: ['build', '--tag=gcr.io/${PROJECT_ID}/hugo', "-f", "./hugo/Dockerfile", '.']
   
-- name: 'gcr.io/${PROJECT_ID}/hugo'
-  args: ['--help']
   
+#- name: 'gcr.io/${PROJECT_ID}/hugo'
+#  args: ['--help']
+
+# Download Hugo Modules
+
 - name: 'gcr.io/${PROJECT_ID}/hugo'
   args: ['mod', 'graph']
-  
+
+# Build static content with hugo
+
 - name: 'gcr.io/$PROJECT_ID/hugo'
   args: ["-v"]
+ 
+ 
+#- name: busybox
+#  args: ["ls", "-lh"]
   
-- name: busybox
-  args: ["ls", "-lh"]
+#- name: busybox
+#  args: ["ls", "-lh", "./public" ]
   
-- name: busybox
-  args: ["ls", "-lh", "./public" ]
-  
-- name: busybox
-  args: ["ls", "-lh", "./public/docs" ]
-  
+#- name: busybox
+#  args: ["ls", "-lh", "./public/docs" ]
+ 
+ # Check hudo static build is sucessfull
+ 
 - name: busybox
   args: ["cat", "./public/index.html"]
-  
+ 
+# Build nginx image t for cloud run with static file 
 - name: 'gcr.io/cloud-builders/docker'
   args: ["build", "--tag=gcr.io/${PROJECT_ID}/ngnix", "-f", "./ngnix/Dockerfile", "."]
-  
+ 
+# Push container in GCR
 - name: 'gcr.io/cloud-builders/docker'
   args: ['push', 'gcr.io/${PROJECT_ID}/ngnix']
   
