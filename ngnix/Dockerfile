@@ -1,5 +1,6 @@
 FROM nginx:alpine
-COPY ./ngnix/ngnix.conf /etc/nginx/conf.d/configfile.template
+COPY ./ngnix/ngnix.conf /etc/nginx/conf.d/ngnix.conf
+RUN rm /etc/nginx/conf.d/default.conf 
 COPY ./public/ /usr/share/nginx/html/
 
 ENV PORT 8080
